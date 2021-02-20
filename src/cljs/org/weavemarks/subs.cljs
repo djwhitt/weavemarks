@@ -3,6 +3,6 @@
    [re-frame.core :as re-frame]))
 
 (re-frame/reg-sub
- ::name
+ ::arweave-address
  (fn [db]
-   (:name db)))
+   (:arweave-address db)))
