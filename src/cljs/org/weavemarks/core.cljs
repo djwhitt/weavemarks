@@ -4,9 +4,7 @@
    [re-frame.core :as re-frame]
    [org.weavemarks.events :as events]
    [org.weavemarks.views :as views]
-   [org.weavemarks.config :as config]
-   ))
-
+   [org.weavemarks.config :as config]))
 
 (defn dev-setup []
   (when config/debug?
