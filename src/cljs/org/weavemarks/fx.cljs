@@ -13,6 +13,6 @@
        (.then (fn [address]
                 (when on-success
                   (on-success address))))
-       (.error (fn [error]
+       (.catch (fn [error]
                  (when on-error
                    (on-error error)))))))
