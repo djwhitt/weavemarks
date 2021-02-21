@@ -9,7 +9,7 @@
  :jwk-to-address
  (fn [{:keys [key on-success on-error]}]
    (-> (.-wallets arweave)
-       (.jwkToAddress (js/JSON.parse key))
+       (.jwkToAddress (clj->js key))
        (.then (fn [address]
                 (when on-success
                   (on-success address))))

@@ -22,11 +22,12 @@
 (re-frame/reg-event-fx
  ::init-wallet
  (fn [{:keys [db] :as _cofx} _]
-   (let [{:keys [wallet-text]} db]
+   (let [{:keys [wallet-text]} db
+         jwk (-> wallet-text js/JSON.parse js->clj)]
      {:db (assoc db
                  :wallet-text ""
-                 :wallet-jwk wallet-text)
-      :jwk-to-address {:key wallet-text
+                 :wallet-jwk jwk)
+      :jwk-to-address {:key jwk
                        :on-success #(re-frame/dispatch [::set-address %])}})))
 
 (re-frame/reg-event-fx
