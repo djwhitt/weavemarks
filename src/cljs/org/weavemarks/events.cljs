@@ -27,4 +27,4 @@
                :wallet-input ""
                :wallet-jwk (:wallet-input db))
     :jwk-to-address {:key (:wallet-input db)
-                     :on-address #(re-frame/dispatch [::set-address %])}}))
+                     :on-success #(re-frame/dispatch [::set-address %])}}))

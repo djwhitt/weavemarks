@@ -7,9 +7,12 @@
 
 (re-frame/reg-fx
  :jwk-to-address
- (fn [{:keys [key on-address]}]
-   (-> arweave
-       .-wallets
+ (fn [{:keys [key on-success on-error]}]
+   (-> (.-wallets arweave)
        (.jwkToAddress (js/JSON.parse key))
        (.then (fn [address]
-                (on-address address))))))
+                (when on-success
+                  (on-success address))))
+       (.error (fn [error]
+                 (when on-error
+                   (on-error error)))))))
