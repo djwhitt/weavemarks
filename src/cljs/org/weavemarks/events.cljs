@@ -11,9 +11,9 @@
    db/default-db))
 
 (re-frame/reg-event-db
- ::update-wallet
+ ::update-wallet-text
  (fn-traced [db [_ s]]
-   (assoc db :wallet-input s)))
+   (assoc db :wallet-text s)))
 
 (re-frame/reg-event-db
  ::set-address
@@ -23,8 +23,16 @@
 (re-frame/reg-event-fx
  ::init-wallet
  (fn-traced [{:keys [db] :as _cofx} _]
-   {:db (assoc db
-               :wallet-input ""
-               :wallet-jwk (:wallet-input db))
-    :jwk-to-address {:key (:wallet-input db)
-                     :on-success #(re-frame/dispatch [::set-address %])}}))
+   (let [{:keys [wallet-text]} db]
+     {:db (assoc db
+                 :wallet-text ""
+                 :wallet-jwk wallet-text)
+      :jwk-to-address {:key wallet-text
+                       :on-success #(re-frame/dispatch [::set-address %])}})))
+
+(re-frame/reg-event-fx
+ ::add-bookmark
+ (fn-traced [{:keys [db] :as _cofx} _]
+   {:transact {:key (:wallet-jwk db)
+               :data {:title "David Whittington's Blog"
+                      :url "https://www.djwhitt.com"}}}))

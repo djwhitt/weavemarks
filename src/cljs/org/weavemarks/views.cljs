@@ -16,7 +16,7 @@
         "None")]
      [:p
       [:textarea
-       {:on-change #(re-frame/dispatch [::events/update-wallet (-> % .-target .-value)])}]]
+       {:on-change #(re-frame/dispatch [::events/update-wallet-text (-> % .-target .-value)])}]]
      [:p
       [:button
        {:on-click #(re-frame/dispatch [::events/init-wallet])}
